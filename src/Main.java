@@ -31,12 +31,11 @@ public class Main extends Application
         mainStage = primaryStage;
 
         // set main pane
-        setPane(new BorderPane());
+        BorderPane bp = new BorderPane();
+        setPane(bp);
 
-        // Do things
-        Cursor c = new Cursor();
-        DebugPen p = new DebugPen();
-        c.addPen(p);
+        Canvas c = new Canvas(WINDOW_HEIGHT, WINDOW_HEIGHT);
+        bp.setCenter(c);
 
         // show
         mainStage.show();

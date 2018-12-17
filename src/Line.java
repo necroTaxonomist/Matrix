@@ -17,7 +17,9 @@ public class Line extends ArrayList<double[][]> implements Shape
 
     public void addPoint(double ... x)
     {
-        add(Mat.getCol(x));
+        double[][] m = Mat.getCol(x);
+        m = Mat.vConcat(m, Mat.ones(1));
+        add(m);
     }
 
     public boolean isClosed()

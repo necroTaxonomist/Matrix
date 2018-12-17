@@ -1,10 +1,17 @@
 
 public interface Shape
 {
-    public double[][] get(int index) throws IndexOutOfBoundsException;
-    public int size();
-
     public boolean isClosed();
+
+    default int size()
+    {
+        return Mat.cols(getMat());
+    }
+
+    default int dims()
+    {
+        return Mat.rows(getMat()) - 1;
+    }
 
     public double[][] getMat();
 }

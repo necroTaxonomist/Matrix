@@ -1,23 +1,61 @@
+import javafx.application.Application;
 
-public class Main
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.Scene;
+
+import javafx.stage.Stage;
+
+public class Main extends Application
 {
+    public static Stage mainStage;
+    public static Scene mainScene;
+    public static Pane mainPane;
+
+    public static final int WINDOW_WIDTH = 800;
+    public static final int WINDOW_HEIGHT = 640;
+
+    private static Main mainApp;
+
     public static void main(String[] args)
     {
-        Line l = new Line(true);
-        l.addPoint(1,2);
-        l.addPoint(2,3);
-        l.addPoint(3,4);
+        launch(args);
+    }
 
-        TFShape sh = new TFShape(l);
-        System.out.println(Mat.disp(sh.getMat()));
+    public void start(Stage primaryStage)
+    {
+        // set main object
+        mainApp = this;
 
-        sh.pushTF(Mat.scaleTF(2,2));
-        System.out.println(Mat.disp(sh.getMat()));
+        // set main stage
+        mainStage = primaryStage;
 
-        sh.pushTF(Mat.tlTF(1,1));
-        System.out.println(Mat.disp(sh.getMat()));
+        // set main pane
+        setPane(new BorderPane());
 
-        sh.multTF(0, Mat.scaleTF(.5,.5));
-        System.out.println(Mat.disp(sh.getMat()));
+        // Do things
+        Cursor c = new Cursor();
+        DebugPen p = new DebugPen();
+        c.addPen(p);
+
+        // show
+        mainStage.show();
+    }
+
+    private void setPane(Pane pane)
+    {
+        mainPane = pane;
+        mainScene = new Scene(mainPane, WINDOW_WIDTH, WINDOW_HEIGHT);
+        mainStage.setScene(mainScene);
+    }
+
+    public static double width(double factor)
+    {
+        return WINDOW_WIDTH * factor;
+    }
+
+    public static double height(double factor)
+    {
+        return WINDOW_HEIGHT * factor;
     }
 }

@@ -1,16 +1,32 @@
 
 public abstract class Mat
 {
+    static int rows(double[] m)
+    {
+        return m.length;
+    }
     static int rows(double[][] m)
     {
         return m.length;
     }
 
+    static int cols(double[] m)
+    {
+        return 1;
+    }
     static int cols(double[][] m)
     {
         return m[0].length;
     }
 
+    static double[][] getRow(double[] m, int r)
+    {
+        double[][] ret = new double[1][1];
+
+        ret[0][0] = m[r];
+
+        return ret;
+    }
     static double[][] getRow(double[][] m, int r)
     {
         double[][] ret = new double[1][cols(m)];
@@ -23,6 +39,17 @@ public abstract class Mat
         return ret;
     }
 
+    static double[][] getCol(double[] m)
+    {
+        double[][] ret = new double[rows(m)][1];
+
+        for (int r = 0; r < rows(m); ++r)
+        {
+            ret[r][0] = m[r];
+        }
+
+        return ret;
+    }
     static double[][] getCol(double[][] m, int c)
     {
         double[][] ret = new double[rows(m)][1];
@@ -156,5 +183,38 @@ public abstract class Mat
         }
 
         return str;
+    }
+
+    static double[][] hConcat(double[][] ... mats)
+    {
+        int row = 0;
+        int col = 0;
+
+        for (double[][] m : mats)
+        {
+            if (row == 0)
+                row = rows(m);
+            else if (row != rows(m))
+                throw new ArithmeticException("Invalid matrix concatenation");
+
+            col += cols(m);
+        }
+
+        double[][] ret = new double[row][col];
+
+        int x = 0;
+        for (double[][] m : mats)
+        {
+            for (int r = 0; r < rows(m); ++r)
+            {
+                for (int c = 0; c < cols(m); ++c)
+                {
+                    ret[r][x+c] = m[r][c];
+                }
+            }
+            x += cols(m);
+        }
+
+        return ret;
     }
 }

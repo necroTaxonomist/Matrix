@@ -3,8 +3,11 @@ public class Main
 {
     public static void main(String[] args)
     {
-        double [][] m1 = Mat.ident(4,3);
+        Line l = new Line(true);
+        l.addPoint(1,2);
+        l.addPoint(2,3);
+        l.addPoint(3,4);
 
-        System.out.println(Mat.disp(m1));
+        System.out.println(Mat.disp(l.getMat()));
     }
 }
